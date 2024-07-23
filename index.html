@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <form id="quizForm">
+        <div class="question">
+            <label for="q1">Income (monthly salary)</label>
+            <input type="number" id="q1" name="q1" required>
+        </div>
+        <div class="question">
+            <label for="q2">Height (cm)</label>
+            <input type="number" id="q2" name="q2" required>
+        </div>
+        <div class="question">
+            <label for="q3">Appearance (1-10)</label>
+            <input type="number" id="q3" name="q3" required min="1" max="10">
+        </div>
+        <div class="question">
+            <label for="q4">Assets (total)</label>
+            <input type="number" id="q4" name="q4" required>
+        </div>
+        <div class="question">
+            <label for="q5">Family Background (wealth and status)</label>
+            <input type="number" id="q5" name="q5" required>
+        </div>
+        <div class="question">
+            <label for="q6">Personality (1-10)</label>
+            <input type="number" id="q6" name="q6" required min="1" max="10">
+        </div>
+        <div class="question">
+            <label for="q7">Smoking Status (1: Smoker, 5: Ex-Smoker, 10: Non-Smoker)</label>
+            <input type="number" id="q7" name="q7" required min="1" max="10">
+        </div>
+        <button type="button" onclick="calculateScore()">See Results</button>
+    </form>
+    <div id="result" class="result"></div>
+
+    <script>
+        function calculateScore() {
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            let totalScore = 0;
+
+            totalScore += Number(formData.get('q1')) / 10000; // Example: divide monthly salary by 10000
+            totalScore += Number(formData.get('q2')) / 18; // Example: divide height by 18
+            totalScore += Number(formData.get('q3')); // Appearance score
+            totalScore += Number(formData.get('q4')) / 1000000; // Example: divide assets by 1000000
+            totalScore += Number(formData.get('q5')) / 1000000; // Example: divide family background by 1000000
+            totalScore += Number(formData.get('q6')); // Personality score
+            totalScore += Number(formData.get('q7')); // Smoking status score
+
+            let grade;
+            if (totalScore >= 90) {
+                grade = 1;
+            } else if (totalScore >= 80) {
+                grade = 2;
+            } else if (totalScore >= 70) {
+                grade = 3;
+            } else if (totalScore >= 60) {
+                grade = 4;
+            } else if (totalScore >= 50) {
+                grade = 5;
+            } else if (totalScore >= 40) {
+                grade = 6;
+            } else if (totalScore >= 30) {
+                grade = 7;
+            } else if (totalScore >= 20) {
+                grade = 8;
+            } else {
+                grade = 9;
+            }
+
+            document.getElementById('result').innerText = `Total Score: ${totalScore.toFixed(2)}\nYour grade is: ${grade}`;
+        }
+    </script>
+</body>
+</html>
